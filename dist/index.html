@@ -1,0 +1,6 @@
+<script src="./index.js"></script>
+<script>
+  var test = ErisDBFactory.createInstance('http://localhost:1337/rpc')
+  test.request.call('getNetworkInfo')
+  .then(console.log)
+</script>
