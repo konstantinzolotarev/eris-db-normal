@@ -62,3 +62,44 @@ All methods usages are described in [tests](https://github.com/konstantinzolotar
 
 This library has browser version into `dist/index.js` you could download it and use in browser.
 Example of usage is into `dist/index.html`
+
+## Signing transactions
+This library includes transaction signing mechanism.
+
+Sample:
+
+```javascript
+const tx = {
+  inputs: [
+    {
+      address: user.address,
+      amount: 101,
+      sequence: 1,
+      pub_key: user.pub_key
+    }
+  ],
+  outputs: [
+    {
+      address: other_account.address,
+      amount: 100
+    }
+  ]
+}
+const txForSign = {
+  chain_id: 'chainIdHere',
+  tx: [
+    2,
+    _.cloneDeep(tx)
+  ]
+}
+erisdb.transactions
+  .sign(txForSign, config.account.privKey)
+  .then((signed) => {
+    tx.inputs[0].signature = signed
+  })
+  .then(() => {
+    return global.erisdb
+      .transactions
+      .broadcastTx(tx)
+  })
+```

@@ -4,6 +4,7 @@ const expect = require('chai').expect
 const chance = new require('chance')() // eslint-disable-line
 const crypto = require('tendermint-crypto')
 const config = require('../config')
+const _ = require('lodash')
 
 describe('Transactions :: ', () => {
 
@@ -130,7 +131,7 @@ describe('Transactions :: ', () => {
         chain_id: chainId,
         tx: [
           2,
-          tx
+          _.cloneDeep(tx)
         ]
       }
       return global.erisdb
