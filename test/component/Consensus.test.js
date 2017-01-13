@@ -1,7 +1,6 @@
 'use strict'
 
 const expect = require('chai').expect
-const chance = new require('chance')() // eslint-disable-line
 
 describe('Consensus :: ', () => {
 
