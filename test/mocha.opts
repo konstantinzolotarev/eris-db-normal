@@ -4,3 +4,4 @@
 --check-leaks
 --globals erisdb
 --invert
+--timeout 10000

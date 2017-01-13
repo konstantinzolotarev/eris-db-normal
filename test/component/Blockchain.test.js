@@ -133,7 +133,7 @@ describe('Blockchain :: ', () => {
     it('shuold load block', () => {
       return global.erisdb
         .blockchain
-        .getBlock(123)
+        .getBlock(1)
         .then((info) => {
           expect(info).to.be.an('object')
             .and.to.contain.all.keys([

@@ -38,7 +38,8 @@
     "chance": "^1.0.4",
     "eslint": "^3.13.1",
     "eslint-config-trails": "^2.0.6",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "solc": "^0.3.4"
   },
   "dependencies": {
     "lodash": "^4.17.4",

@@ -65,6 +65,21 @@ describe('Transactions :: ', () => {
 
     let accounts
     let chainId
+    let user
+
+    before(() => {
+      return global.erisdb
+        .unsafe
+        .genPrivAccount()
+        .then((newAcc) => {
+          expect(newAcc).to.be.an('object')
+            .and.to.contain.all.keys([
+              'address', 'pub_key', 'priv_key'
+            ])
+
+          user = newAcc
+        })
+    })
 
     before(() => {
       return global.erisdb
@@ -98,10 +113,10 @@ describe('Transactions :: ', () => {
       const tx = {
         inputs: [
           {
-            address: accounts[1].address,
+            address: user.address,
             amount: 101,
             sequence: 1,
-            pub_key: accounts[1].pub_key
+            pub_key: user.pub_key
           }
         ],
         outputs: [
