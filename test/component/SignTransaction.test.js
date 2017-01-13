@@ -45,7 +45,7 @@ contract SampleContract {
       address: '',
       data: compiled.bytecode.toUpperCase(),
       fee: 12,
-      gas_limit: 223,
+      gas_limit: 12,
       input: {
         address: config.account.address,
         amount: 100,
