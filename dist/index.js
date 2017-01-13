@@ -785,13 +785,16 @@ module.exports = function () {
 
       if (address && !util.isAddress(address)) return Promise.reject(new Error('Address should be a valid address'));
 
-      return this._eris.request.call('transact', {
+      var params = {
         priv_key: privKey,
         data: data,
-        address: address || '',
-        fee: fee || 0,
-        gas_limit: gasLimit || 0
-      });
+        address: address || ''
+      };
+      if (fee && _.isNumber(fee)) params.fee = fee;
+
+      if (gasLimit && _.isNumber(gasLimit)) params.gasLimit = gasLimit;
+
+      return this._eris.request.call('transact', params);
     }
 
     /**
@@ -820,13 +823,16 @@ module.exports = function () {
 
       if (address && !util.isAddress(address)) return Promise.reject(new Error('Address should be a valid address'));
 
-      return this._eris.request.call('transactAndHold', {
+      var params = {
         priv_key: privKey,
         data: data,
-        address: address || '',
-        fee: fee || 0,
-        gas_limit: gasLimit || 0
-      });
+        address: address || ''
+      };
+      if (fee && _.isNumber(fee)) params.fee = fee;
+
+      if (gasLimit && _.isNumber(gasLimit)) params.gasLimit = gasLimit;
+
+      return this._eris.request.call('transactAndHold', params);
     }
 
     /**
@@ -854,13 +860,16 @@ module.exports = function () {
 
       if (!_.isString(name) || !name.length) return Promise.reject(new Error('Name is required parameter'));
 
-      return this._eris.request.call('transactNameReg', {
+      var params = {
         priv_key: privKey,
         data: data,
-        name: name,
-        fee: fee || 0,
-        amount: amount || 0
-      });
+        name: name
+      };
+      if (fee && _.isNumber(fee)) params.fee = fee;
+
+      if (amount && _.isNumber(amount)) params.amount = amount;
+
+      return this._eris.request.call('transactNameReg', params);
     }
 
     /**
@@ -26053,7 +26062,7 @@ module.exports={
         "spec": ">=6.0.0 <7.0.0",
         "type": "range"
       },
-      "/Users/KoS/Projects/vulcanize/eris-db-normal/node_modules/browserify-sign"
+      "/Volumes/Repos/Coding/vulcanize/eris-db-promise/node_modules/browserify-sign"
     ]
   ],
   "_from": "elliptic@>=6.0.0 <7.0.0",
@@ -26088,7 +26097,7 @@ module.exports={
   "_shasum": "e4c81e0829cf0a65ab70e998b8232723b5c1bc48",
   "_shrinkwrap": null,
   "_spec": "elliptic@^6.0.0",
-  "_where": "/Users/KoS/Projects/vulcanize/eris-db-normal/node_modules/browserify-sign",
+  "_where": "/Volumes/Repos/Coding/vulcanize/eris-db-promise/node_modules/browserify-sign",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -109057,7 +109066,7 @@ module.exports={
         "spec": ">=2.3.0 <2.4.0",
         "type": "range"
       },
-      "/Users/KoS/Projects/vulcanize/eris-db-normal/node_modules/request"
+      "/Volumes/Repos/Coding/vulcanize/eris-db-promise/node_modules/request"
     ]
   ],
   "_from": "tough-cookie@>=2.3.0 <2.4.0",
@@ -109091,7 +109100,7 @@ module.exports={
   "_shasum": "f081f76e4c85720e6c37a5faced737150d84072a",
   "_shrinkwrap": null,
   "_spec": "tough-cookie@~2.3.0",
-  "_where": "/Users/KoS/Projects/vulcanize/eris-db-normal/node_modules/request",
+  "_where": "/Volumes/Repos/Coding/vulcanize/eris-db-promise/node_modules/request",
   "author": {
     "name": "Jeremy Stashewsky",
     "email": "jstashewsky@salesforce.com"
