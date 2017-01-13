@@ -110,51 +110,6 @@ describe('Transactions :: ', () => {
         })
     })
 
-    xit('should broadcast tx', () => {
-      const tx = {
-        inputs: [
-          {
-            address: config.account.address,
-            amount: 101,
-            sequence: 1
-          }
-        ],
-        outputs: [
-          {
-            address: accounts[0].address,
-            amount: 100
-          }
-        ]
-      }
-      const txForSign = {
-        chain_id: chainId,
-        tx: [
-          2,
-          _.cloneDeep(tx)
-        ]
-      }
-      return global.erisdb
-        .transactions
-        .sign(txForSign, config.account.privKey)
-        .then((signed) => {
-          tx.inputs[0].signature = signed
-          tx.inputs[0].pub_key = config.account.pub_key
-        })
-        .then(() => {
-          return global.erisdb
-            .transactions
-            .broadcastTx(tx)
-        })
-        .then((data) => {
-          expect(data).to.be.an('object')
-            .and.to.contain.all.keys([
-              'tx_hash',
-              'creates_contract',
-              'contract_addr'
-            ])
-        })
-    })
-
   })
 
   describe('getUnconfirmedTxs() :: ', () => {
