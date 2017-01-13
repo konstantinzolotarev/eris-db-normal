@@ -64,6 +64,7 @@ describe('Transactions :: ', () => {
   describe('broadcastTx() :: ', () => {
 
     let accounts
+    let chainId
 
     before(() => {
       return global.erisdb
@@ -75,8 +76,10 @@ describe('Transactions :: ', () => {
 
           accounts = list
         })
-        .then(() => {
-
+        .then(() => global.erisdb.blockchain.getChainId())
+        .then((chain) => {
+          expect(chain).to.be.a('string')
+          chainId = chain
         })
     })
 
@@ -109,7 +112,7 @@ describe('Transactions :: ', () => {
         ]
       }
       const txForSign = {
-        chain_id: 'simplechain',
+        chain_id: chainId,
         tx: [
           2,
           tx
