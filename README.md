@@ -54,6 +54,8 @@ Library contains this components:
 | Unsafe | [ErisDB.unsafe](https://github.com/konstantinzolotarev/eris-db-promise/blob/master/lib/components/Unsafe.js) |
 
 
+All methods are made using documentation [here](https://monax.io/docs/documentation/db/latest/specifications/api/)
+
 All methods usages are described in [tests](https://github.com/konstantinzolotarev/eris-db-promise/tree/master/test/component)
 
 ## Browser usage
