@@ -3,6 +3,7 @@
 const expect = require('chai').expect
 const chance = new require('chance')() // eslint-disable-line
 const crypto = require('tendermint-crypto')
+const config = require('../config')
 
 describe('Transactions :: ', () => {
 
@@ -74,6 +75,9 @@ describe('Transactions :: ', () => {
 
           accounts = list
         })
+        .then(() => {
+
+        })
     })
 
     it('reject without transaction', () => {
@@ -88,10 +92,40 @@ describe('Transactions :: ', () => {
     })
 
     xit('should broadcast tx', () => {
-      const tx = {}
+      const tx = {
+        inputs: [
+          {
+            address: accounts[1].address,
+            amount: 101,
+            sequence: 1,
+            pub_key: accounts[1].pub_key
+          }
+        ],
+        outputs: [
+          {
+            address: accounts[0].address,
+            amount: 100
+          }
+        ]
+      }
+      const txForSign = {
+        chain_id: 'simplechain',
+        tx: [
+          2,
+          tx
+        ]
+      }
       return global.erisdb
         .transactions
-        .broadcastTx(tx)
+        .sign(txForSign, config.account.privKey)
+        .then((signed) => {
+          tx.inputs[0].signature = signed
+        })
+        .then(() => {
+          return global.erisdb
+            .transactions
+            .broadcastTx(tx)
+        })
         .then((data) => {
           expect(data).to.be.an('object')
             .and.to.contain.all.keys([
