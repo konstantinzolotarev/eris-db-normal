@@ -70,15 +70,15 @@ describe('Accounts :: ', () => {
           expect(accounts).to.be.an('array')
             .and.to.have.length.above(0)
 
-            expect(accounts[0]).to.be.an('object')
-              .and.to.have.property('address', '0000000000000000000000000000000000000000')
+          expect(accounts[0]).to.be.an('object')
+            .and.to.have.property('address', '0000000000000000000000000000000000000000')
 
-            expect(accounts[0]).to.contain.all.keys([
-              'address', 'pub_key', 'sequence', 'balance',
-              'code', 'storage_root', 'permissions'
-            ])
+          expect(accounts[0]).to.contain.all.keys([
+            'address', 'pub_key', 'sequence', 'balance',
+            'code', 'storage_root', 'permissions'
+          ])
 
-            expect(accounts[0].balance).to.be.above(1000)
+          expect(accounts[0].balance).to.be.above(1000)
         })
     })
 

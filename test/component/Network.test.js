@@ -94,7 +94,7 @@ describe('Network component :: ', () => {
 
   describe('getPeer() :: ', () => {
 
-    let address = '1431A2D608CF9F1462C21E1FE749A7FA13F3B137'
+    const address = '1431A2D608CF9F1462C21E1FE749A7FA13F3B137'
 
     it('reject without address', () => {
       return global.erisdb
