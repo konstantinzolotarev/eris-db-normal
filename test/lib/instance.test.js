@@ -1,8 +1,8 @@
 'use strict'
 
 const expect = require('chai').expect
-const eris = require('../index')
-const config = require('./config')
+const eris = require('../../index')
+const config = require('../config')
 
 describe('createInstance() :: ', () => {
 
