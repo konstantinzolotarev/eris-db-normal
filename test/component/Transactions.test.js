@@ -119,6 +119,41 @@ describe('Transactions :: ', () => {
 
   describe('call() :: ', () => {
 
+    it('reject without address', () => {
+      return global.erisdb
+        .transactions
+        .call()
+        .then(() => Promise.reject())
+        .catch((err) => {
+          expect(err).to.be.an('error')
+            .and.to.have.property('message', 'Address is required parameter')
+        })
+    })
+
+    it('reject without data', () => {
+      return global.erisdb
+        .transactions
+        .call(chance.string({ length: 40, 'pool': 'abcdef1234567890' }))
+        .then(() => Promise.reject())
+        .catch((err) => {
+          expect(err).to.be.an('error')
+            .and.to.have.property('message', 'Data is required parameter')
+        })
+    })
+
+    it('reject with non HEX data', () => {
+      return global.erisdb
+        .transactions
+        .call(chance.string({ length: 40, 'pool': 'abcdef1234567890' }), 'test')
+        .then(() => Promise.reject())
+        .catch((err) => {
+          expect(err).to.be.an('error')
+            .and.to.have.property('message', 'Data is required parameter')
+        })
+    })
+
+    it('should make a call')
+
   })
 
   describe('callCode() :: ', () => {
