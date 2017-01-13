@@ -66,21 +66,21 @@ describe('Transactions :: ', () => {
 
     let accounts
     let chainId
-    let user
-
-    before(() => {
-      return global.erisdb
-        .unsafe
-        .genPrivAccount()
-        .then((newAcc) => {
-          expect(newAcc).to.be.an('object')
-            .and.to.contain.all.keys([
-              'address', 'pub_key', 'priv_key'
-            ])
-
-          user = newAcc
-        })
-    })
+    // let user
+    //
+    // before(() => {
+    //   return global.erisdb
+    //     .unsafe
+    //     .genPrivAccount()
+    //     .then((newAcc) => {
+    //       expect(newAcc).to.be.an('object')
+    //         .and.to.contain.all.keys([
+    //           'address', 'pub_key', 'priv_key'
+    //         ])
+    //
+    //       user = newAcc
+    //     })
+    // })
 
     before(() => {
       return global.erisdb
@@ -114,10 +114,9 @@ describe('Transactions :: ', () => {
       const tx = {
         inputs: [
           {
-            address: user.address,
+            address: config.account.address,
             amount: 101,
-            sequence: 1,
-            pub_key: user.pub_key
+            sequence: 1
           }
         ],
         outputs: [
@@ -139,6 +138,7 @@ describe('Transactions :: ', () => {
         .sign(txForSign, config.account.privKey)
         .then((signed) => {
           tx.inputs[0].signature = signed
+          tx.inputs[0].pub_key = config.account.pub_key
         })
         .then(() => {
           return global.erisdb
