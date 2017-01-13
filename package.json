@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "browserify": "node ./node_modules/browserify/bin/cmd.js ./browser.js -t [ babelify --comments false ] -o ./dist/index.js",
     "test": "eslint . && NODE_ENV=testing ./node_modules/mocha/bin/mocha",
     "mocha": "NODE_ENV=testing ./node_modules/mocha/bin/mocha"
   },
@@ -30,6 +31,9 @@
     }
   },
   "devDependencies": {
+    "babel-preset-latest": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.3.0",
     "chai": "^3.5.0",
     "chance": "^1.0.4",
     "eslint": "^3.13.1",
