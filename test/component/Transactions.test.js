@@ -106,7 +106,14 @@ describe('Transactions :: ', () => {
 
   describe('getUnconfirmedTxs() :: ', () => {
 
-    it('load list of unconfirmed transactions')
+    it('load list of unconfirmed transactions', () => {
+      return global.erisdb
+        .transactions
+        .getUnconfirmedTxs()
+        .then((list) => {
+          expect(list).to.be.an('array')
+        })
+    })
 
   })
 
