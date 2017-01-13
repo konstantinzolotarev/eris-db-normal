@@ -3,3 +3,4 @@
 --slow 50
 --check-leaks
 --invert
+--globals erisdb
