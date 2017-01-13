@@ -17,42 +17,58 @@ contract SampleContract {
   const compiled = solc.compile(SampleContract, 1).contracts['SampleContract']
   const abi = JSON.parse(compiled.interface)
 
-  const tx = {
-    address: '',
-    data: compiled.bytecode.toUpperCase(),
-    fee: 12,
-    gas_limit: 223,
-    input: {
-      address: config.account.address,
-      amount: 100,
-      sequence: 9
-    }
-  }
-
-  const txForSigning = {
-    chain_id: '',
-    tx: [
-      2, {
-        address: tx.address,
-        data: tx.data,
-        fee: tx.fee,
-        gas_limit: tx.gas_limit,
-        input: {
-          address: tx.input.address,
-          amount: tx.input.amount,
-          sequence: tx.input.sequence
-        }
-      }
-    ]
-  }
+  let tx
+  let txForSigning
+  let chain_id
+  let sequence
 
   before(() => {
     return global.erisdb
       .blockchain
       .getChainId()
       .then((chainId) => {
-        txForSigning.chain_id = chainId
+        chain_id = chainId
       })
+  })
+
+  before(() => {
+    return global.erisdb
+      .accounts
+      .getAccount(config.account.address)
+      .then((account) => {
+        sequence = account.sequence + 1
+      })
+  })
+
+  before(() => {
+    tx = {
+      address: '',
+      data: compiled.bytecode.toUpperCase(),
+      fee: 12,
+      gas_limit: 223,
+      input: {
+        address: config.account.address,
+        amount: 100,
+        sequence: sequence
+      }
+    }
+
+    txForSigning = {
+      chain_id: chain_id,
+      tx: [
+        2, {
+          address: tx.address,
+          data: tx.data,
+          fee: tx.fee,
+          gas_limit: tx.gas_limit,
+          input: {
+            address: tx.input.address,
+            amount: tx.input.amount,
+            sequence: tx.input.sequence
+          }
+        }
+      ]
+    }
   })
 
   it('should sign transaction', () => {
