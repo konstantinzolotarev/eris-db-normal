@@ -1,5 +1,5 @@
 {
-  "name": "eris-db-normal",
+  "name": "eris-db-promise",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/konstantinzolotarev/eris-db-normal.git"
+    "url": "git+https://github.com/konstantinzolotarev/eris-db-promise.git"
   },
   "author": "Konstantin Zolotarev<konstantin.zolotarev@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/konstantinzolotarev/eris-db-normal/issues"
+    "url": "https://github.com/konstantinzolotarev/eris-db-promise/issues"
   },
-  "homepage": "https://github.com/konstantinzolotarev/eris-db-normal#readme",
+  "homepage": "https://github.com/konstantinzolotarev/eris-db-promise#readme",
   "eslintConfig": {
     "extends": "trails",
     "rules": {
