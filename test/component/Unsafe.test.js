@@ -3,6 +3,7 @@
 const expect = require('chai').expect
 const chance = new require('chance')() // eslint-disable-line
 const solc = require('solc')
+const config = require('../config')
 
 describe('Unsafe :: ', () => {
 
@@ -80,7 +81,7 @@ describe('Unsafe :: ', () => {
         })
     })
 
-    xit('should make a transaction', () => {
+    it('should make a transaction', () => {
       const contract = `
       contract Sample {
         function add(int a, int b) constant returns (int sum) {
@@ -91,11 +92,8 @@ describe('Unsafe :: ', () => {
       const compiled = solc.compile(contract, 1).contracts['Sample']
       return global.erisdb
         .unsafe
-        .transact(account.priv_key[1], compiled.bytecode, '', 10, 99999)
+        .transact(config.account.privKey, compiled.bytecode, '')
         .then((info) => {
-          console.log('==========================')
-          console.log(info)
-          console.log('==========================')
           expect(info).to.be.an('object')
             .and.to.contain.all.keys([
               'tx_hash', 'creates_contract', 'contract_addr'
@@ -166,7 +164,7 @@ describe('Unsafe :: ', () => {
       const compiled = solc.compile(contract, 1).contracts['Sample']
       return global.erisdb
         .unsafe
-        .transactAndHold(account.priv_key[1], compiled.bytecode, '', 10, 99999)
+        .transactAndHold(config.account.privKey, compiled.bytecode, config.account.address)
         .then((info) => {
           console.log('==========================')
           console.log(info)
@@ -241,7 +239,7 @@ describe('Unsafe :: ', () => {
       const compiled = solc.compile(contract, 1).contracts['Sample']
       return global.erisdb
         .unsafe
-        .transactNameReg(account.priv_key[1], compiled.bytecode, 'test', 10, 10)
+        .transactNameReg(config.account.privKey, compiled.bytecode, 'test', 10)
         .then((info) => {
           console.log('==========================')
           console.log(info)
