@@ -15,19 +15,19 @@ contract SampleContract {
   `
 
   const compiled = solc.compile(SampleContract, 1).contracts['SampleContract']
-  const abi = JSON.parse(compiled.interface)
+  // const abi = JSON.parse(compiled.interface)
 
   let tx
   let txForSigning
-  let chain_id
+  let chainId
   let sequence
 
   before(() => {
     return global.erisdb
       .blockchain
       .getChainId()
-      .then((chainId) => {
-        chain_id = chainId
+      .then((loadedChainId) => {
+        chainId = loadedChainId
       })
   })
 
@@ -36,7 +36,10 @@ contract SampleContract {
       .accounts
       .getAccount(config.account.address)
       .then((account) => {
-        sequence = account.sequence + 1
+        if (!account || !account.sequence)
+          sequence = 1
+        else
+          sequence = account.sequence + 1
       })
   })
 
@@ -54,7 +57,7 @@ contract SampleContract {
     }
 
     txForSigning = {
-      chain_id: chain_id,
+      chain_id: chainId,
       tx: [
         2, {
           address: tx.address,

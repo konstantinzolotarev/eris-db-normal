@@ -3,8 +3,6 @@
 const expect = require('chai').expect
 const chance = new require('chance')() // eslint-disable-line
 const crypto = require('tendermint-crypto')
-const config = require('../config')
-const _ = require('lodash')
 
 describe('Transactions :: ', () => {
 
@@ -17,8 +15,6 @@ describe('Transactions :: ', () => {
   })
 
   describe('sign() :: ', () => {
-
-    const wrongAccount = chance.string({ length: 40, 'pool': 'abcdef1234567890' })
 
     it('reject without tx', () => {
       return global.erisdb
@@ -64,8 +60,8 @@ describe('Transactions :: ', () => {
 
   describe('broadcastTx() :: ', () => {
 
-    let accounts
-    let chainId
+    // let accounts
+    // let chainId
     // let user
     //
     // before(() => {
@@ -82,22 +78,22 @@ describe('Transactions :: ', () => {
     //     })
     // })
 
-    before(() => {
-      return global.erisdb
-        .accounts
-        .getAccounts()
-        .then((list) => {
-          expect(list).to.be.an('array')
-            .and.to.have.length.above(1)
-
-          accounts = list
-        })
-        .then(() => global.erisdb.blockchain.getChainId())
-        .then((chain) => {
-          expect(chain).to.be.a('string')
-          chainId = chain
-        })
-    })
+    // before(() => {
+    //   return global.erisdb
+    //     .accounts
+    //     .getAccounts()
+    //     .then((list) => {
+    //       expect(list).to.be.an('array')
+    //         .and.to.have.length.above(1)
+    //
+    //       accounts = list
+    //     })
+    //     .then(() => global.erisdb.blockchain.getChainId())
+    //     .then((chain) => {
+    //       expect(chain).to.be.a('string')
+    //       chainId = chain
+    //     })
+    // })
 
     it('reject without transaction', () => {
       return global.erisdb
