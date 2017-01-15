@@ -153,7 +153,7 @@ describe('Unsafe :: ', () => {
         })
     })
 
-    xit('should make a transaction', () => {
+    it('should make a transaction', () => {
       const contract = `
       contract Sample {
         function add(int a, int b) constant returns (int sum) {
@@ -164,15 +164,20 @@ describe('Unsafe :: ', () => {
       const compiled = solc.compile(contract, 1).contracts['Sample']
       return global.erisdb
         .unsafe
-        .transactAndHold(config.account.privKey, compiled.bytecode, config.account.address)
+        .transactAndHold(config.account.privKey, compiled.bytecode, '')
         .then((info) => {
-          console.log('==========================')
-          console.log(info)
-          console.log('==========================')
           expect(info).to.be.an('object')
             .and.to.contain.all.keys([
-              'tx_hash', 'creates_contract', 'contract_addr'
+              'call_data', 'tx_id', 'return', 'origin'
             ])
+
+          expect(info.call_data).to.be.an('object')
+            .and.to.contain.all.keys([
+              'caller', 'callee', 'data', 'value', 'gas'
+            ])
+
+          expect(info.call_data.data).to.be
+            .eq(compiled.bytecode.toUpperCase())
         })
     })
   })
