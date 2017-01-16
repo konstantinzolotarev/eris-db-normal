@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const solc = require('solc')
 const config = require('../config')
 
-xdescribe('Transaction.sendTransaction :: ', () => {
+describe('Transaction.sendTransaction :: ', () => {
 
   const SampleContract = `
 contract SampleContract {
@@ -73,18 +73,23 @@ contract SampleContract {
       })
   })
 
-  it('should sign transaction', () => {
+  it('should send transaction', () => {
     return global.erisdb
       .transactions
       .sendTransaction(tx, config.account.privKey)
-      .then((data) => {
-        console.log('==========================')
-        console.log(data)
-        console.log('==========================')
-        expect(data).to.be.an('object')
+      .then((info) => {
+        expect(info).to.be.an('object')
           .and.to.contain.all.keys([
-            'tx_hash', 'creates_contract', 'contract_addr'
+            'call_data', 'tx_id', 'return', 'origin'
           ])
+
+        expect(info.call_data).to.be.an('object')
+          .and.to.contain.all.keys([
+            'caller', 'callee', 'data', 'value', 'gas'
+          ])
+
+        expect(info.call_data.data).to.be
+          .eq(compiled.bytecode.toUpperCase())
       })
   })
 })
