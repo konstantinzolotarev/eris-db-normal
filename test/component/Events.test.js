@@ -4,6 +4,8 @@ const expect = require('chai').expect
 
 describe('Events :: ', () => {
 
+  let subscriptionId
+
   describe('component :: ', () => {
 
     it('should exist', () => {
@@ -30,9 +32,10 @@ describe('Events :: ', () => {
       return global.erisdb
         .events
         .eventSubscribe(eventId)
-        .then((info) => {
-          expect(info).to.be.an('object')
-            .and.to.have.property('sub_id')
+        .then((newSubscriberId) => {
+          expect(newSubscriberId).to.be.a('string')
+
+          subscriptionId = newSubscriberId
         })
     })
   })
@@ -46,7 +49,7 @@ describe('Events :: ', () => {
         .then(() => Promise.reject())
         .catch((err) => {
           expect(err).to.be.an('error')
-            .and.to.have.property('message', 'EventId is required parameter')
+            .and.to.have.property('message', 'SubscriptionId is required parameter')
         })
     })
 
@@ -61,14 +64,13 @@ describe('Events :: ', () => {
         })
     })
 
-    xit('should poll to event', () => {
-      const eventId = 'NewBlock'
+    it('should poll to event', () => {
+      expect(subscriptionId).to.be.ok
       return global.erisdb
         .events
-        .eventPoll(eventId)
-        .then((info) => {
-          expect(info).to.be.an('object')
-            .and.to.have.property('events')
+        .eventPoll(subscriptionId)
+        .then((events) => {
+          expect(events).to.be.an('array')
         })
     })
   })
@@ -82,18 +84,16 @@ describe('Events :: ', () => {
         .then(() => Promise.reject())
         .catch((err) => {
           expect(err).to.be.an('error')
-            .and.to.have.property('message', 'EventId is required parameter')
+            .and.to.have.property('message', 'SubscriptionId is required parameter')
         })
     })
 
     it('should unsubscribe to event', () => {
-      const eventId = 'NewBlock'
       return global.erisdb
         .events
-        .eventUnsubscribe(eventId)
-        .then((info) => {
-          expect(info).to.be.an('object')
-            .and.to.have.property('result')
+        .eventUnsubscribe(subscriptionId)
+        .then((result) => {
+          expect(result).to.be.true
         })
     })
   })
