@@ -22,6 +22,10 @@ contract SampleContract {
 
   before(() => {
     tx = {
+      // data: new Buffer(JSON.stringify({
+      //   value: 1000,
+      //   data: compiled.bytecode.toUpperCase()
+      // })).toString('hex').toUpperCase(),
       data: compiled.bytecode.toUpperCase(),
       input: {
         address: config.account.address
