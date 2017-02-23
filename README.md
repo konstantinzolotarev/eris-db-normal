@@ -25,7 +25,10 @@ After that you will be able to create new instance of library:
 
 ```javascript
 const erisFactory = require('eris-db-promise')
+// For base HTTP JSON RPC
 const erisDb = erisFactory.createInstance('http://<Your IP Address>:1337/rpc')
+// For WebSocket RPC client
+const erisDb = erisFactory.createInstance('ws://<Your IP Address>:1337/socketrpc')
 ```
 
 This library uses `Promise` so all methods will return promises:
