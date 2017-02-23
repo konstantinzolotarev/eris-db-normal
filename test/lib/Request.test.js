@@ -2,7 +2,7 @@
 
 const config = require('../config')
 const expect = require('chai').expect
-const Request = require('../../lib/Request')
+const Request = require('../../lib/request/HttpRequest')
 
 describe('ErisDB.Request :: ', () => {
 
