@@ -246,9 +246,6 @@ describe('Unsafe :: ', () => {
         .unsafe
         .transactNameReg(config.account.privKey, compiled.bytecode, 'test', 10)
         .then((info) => {
-          console.log('==========================')
-          console.log(info)
-          console.log('==========================')
           expect(info).to.be.an('object')
             .and.to.contain.all.keys([
               'tx_hash', 'creates_contract', 'contract_addr'
