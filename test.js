@@ -1,27 +1,10 @@
 'use strict'
 
-const EventEmitter = require('events')
+const ErisFactory = require('./index')
 
-class MyEmitter extends EventEmitter {}
-
-const myEmitter = new MyEmitter()
-
-myEmitter.on('newListener', (event, listener) => {
-  console.log('==========================')
-  console.log(event)
-  console.log('==========================')
-})
-
-myEmitter.on('removeListener', (event) => {
-  console.log('==========================')
-  console.log('end', event)
-  console.log('==========================')
-})
+const eris = ErisFactory.createInstance('ws://127.0.0.1:1337/socketrpc')
 
 setTimeout(() => {
-  myEmitter.on('test', console.log)
-
-  myEmitter.emit('test', 'teststes')
-
-  myEmitter.removeAllListeners('test')
+  eris.accounts.getAccounts()
+    .then(console.log)
 }, 1000)
