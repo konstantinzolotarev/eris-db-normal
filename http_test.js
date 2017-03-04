@@ -4,7 +4,7 @@ const ErisFactory = require('./index')
 
 const eris = ErisFactory.createInstance('http://127.0.0.1:1337/rpc')
 
-eris.events.eventSubscribe('NewBlock')
+eris.events.eventSubscribe('Log/05E334C3F38C342DE397F8AB6D5B86F7CDFDD91A')
   .then((subId) => {
     if (!subId)
       return
